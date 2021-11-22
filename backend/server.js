@@ -1,30 +1,26 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const DbConnect = require('./database')
-const router = require('./routes')
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const DbConnect = require('./database');
+const router = require('./routes');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
-const cors = require('cors')
-const cookieParser = require('cookie-parser')
-
-app.use(cookieParser())
-
+app.use(cookieParser());
 const corsOption = {
     credentials: true,
     origin: ['http://localhost:3000'],
-}
-app.use(cors(corsOption))
-app.use('/storage', express.static('storage'))
+};
+app.use(cors(corsOption));
+app.use('/storage', express.static('storage'));
+
 const PORT = process.env.PORT || 8000;
-DbConnect()
-app.use(express.json({ limit: '8mb' }))
-app.use(router)
+DbConnect();
+app.use(express.json({ limit: '8mb' }));
+app.use(router);
 
 app.get('/', (req, res) => {
-    res.send('Hello from Express Js')
-})
+    res.send('Hello from express Js');
+});
 
-
-
-
-app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`))
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

@@ -1,3 +1,4 @@
+
 import "./App.css";
 import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -6,10 +7,14 @@ import Authenticate from "./pages/authenticate/Authenticate";
 import Activate from "./pages/Activate/Activate";
 import Rooms from "./pages/Rooms/Rooms";
 import { useSelector } from 'react-redux'
+import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
+import Loader from "./components/shared/Loader/Loader";
 
 function App() {
 
-  return (
+  const { loading } = useLoadingWithRefresh()
+
+  return loading ? (<Loader message="Loading, Please Wait.." />) : (
     <BrowserRouter>
       <Navigation />
 

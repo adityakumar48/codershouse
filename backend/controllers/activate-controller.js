@@ -2,6 +2,7 @@ const Jimp = require('jimp')
 const path = require('path');
 const userService = require('../services/user-service');
 const UserDto = require('../dtos/user-dto')
+
 class ActivateController {
     async activate(req, res) {
         const { name, avatar } = req.body
@@ -11,7 +12,7 @@ class ActivateController {
 
         //  Image
         const buffer = Buffer.from(
-            avatar.replace(/^data:image\/png;base64,/, ''),
+            avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ''),
             'base64'
         );
 

@@ -1,7 +1,10 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../../../http/index'
+import { setAuth } from '../../../store/authSlice'
 import styles from './Navigation.module.css'
+
 
 const Navigation = () => {
     const brandStyle = {
@@ -11,21 +14,33 @@ const Navigation = () => {
         fontSize: '22px',
         display: 'flex',
         alignItems: 'center'
-        
+
     };
 
-    const logoText={
+    const logoText = {
         marginLeft: '10px',
 
+    }
+    const dispatch = useDispatch()
+    const { isAuth } = useSelector(state => state.auth)
+    async function logoutUser() {
+        try {
+
+            const { data } = await logout();
+            dispatch(setAuth(data));
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
 
-        <nav className={`${styles.navbar} container `}> 
+        <nav className={`${styles.navbar} container `}>
             <Link to="/" style={brandStyle} >
                 <img src="/images/logo.png" alt="logo" />
                 <span style={logoText}>Codershouse</span>
             </Link>
+            {isAuth && <button onClick={logoutUser}>Logout</button>}
         </nav>
     )
 }

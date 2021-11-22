@@ -1,5 +1,5 @@
 class UserDto {
-    _id;
+    id;
     phone;
     name;
     avatar
