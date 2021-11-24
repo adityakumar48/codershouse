@@ -64,7 +64,6 @@ const Rooms = () => {
                             <>
                                 <RoomCard key={room.id} room={room} />
                             </>
-
                         ))
                     }
                 </div>
